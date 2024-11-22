@@ -16,14 +16,14 @@ public class MenuItem {
 
     // 기능
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public float getPrice() {
-        return this.price;
+        return price;
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 }
