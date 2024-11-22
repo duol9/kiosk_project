@@ -15,6 +15,11 @@ public class MenuItem {
     }
 
     // 기능
+
+    /**
+     * @return
+     * this키워드로 반환하는 것이 무엇인지 명확하게 가리킴
+     */
     public String getName() {
         return this.name;
     }
