@@ -25,8 +25,7 @@ public class Menu {
         int menuCount; // 메뉴의 개수
         menuCount = menuItems.size(); // meuuItems에 담긴 메뉴 개수 저장
 
-        System.out.println(""); // 화면 구분을 위해 줄바꿈
-        System.out.println("[ " + getCategoryName() + " ] "); // 카테고리 출력
+        System.out.println("[ " + getCategoryName().toUpperCase() + " MENU ] "); // 카테고리명 대문자로 변경 후 출력
         for(int i=0; i<menuCount; i++) {
             MenuItem menuItem = menuItems.get(i);
             System.out.printf("%-2d. %-12s | W %3.1f | %s%n",
@@ -35,7 +34,7 @@ public class Menu {
                     menuItem.getPrice(), // 오른쪽 정렬하고 가격 출력
                     menuItem.getDescription()); // 설명 출력
         }
-        System.out.println("0. 종료");
+        System.out.println("0. 뒤로가기");
     }
 
 
