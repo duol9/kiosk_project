@@ -6,7 +6,7 @@ import java.util.Scanner;
 //사용자 입력 처리, 키오스크 메뉴 관리
 public class Kiosk {
     //속성
-    private List<Menu> menus; // MenuItem울 관리하는 리스트, 객체가 새로 생겨도 정보는 고정되어야 하니까 static
+    private List<Menu> menus; // MenuItem울 관리하는 리스트
 
     //생성자
     public Kiosk(List<Menu> menus) {
