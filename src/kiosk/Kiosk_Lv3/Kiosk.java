@@ -44,21 +44,27 @@ public class Kiosk {
             }
             System.out.println("0. 종료");
 
-            menuNum = sc.nextInt();  // 메뉴를 선택한다.
+            menuNum = sc.nextInt();  // 메뉴를 선택
             sc.nextLine();
 
             /**
-             * munuNum이 0이 아니면 해당하는 메뉴 출력
+             * 선택 메뉴 출력
+             * 선택한 번호(menuNum)가 0이 아니고 메뉴 갯수(menuItems.size()) 범위 안에 해당하면 선택한 메뉴 출력
              * 0이라면 반복문을 빠져나와 프로그램 종료
+             * menuItems.size()보다 큰 숫자를 선택하면 예외처리
              */
-            if (menuNum != 0) {
-                menuSelect = menuItems.get(menuNum-1);
+            if ((menuNum != 0) && (menuNum <= menuItems.size())) {
+                menuSelect = menuItems.get(menuNum-1);    // 리스트 인덱스가 0부터 시작하는 규칙에 맞춤
                 System.out.printf("선택한 메뉴:  %-12s | W %3.1f | %s%n",
                         menuSelect.getName(), // 왼쪽 정렬하고 메뉴명 출력
                         menuSelect.getPrice(), // 오른쪽 정렬하고 가격 출력
                         menuSelect.getDescription()); // 설명 출력
                 System.out.println("");
-            } else if(menuNum == 0) break;
+            } else if(menuNum == 0) {
+                break;
+            } else if (menuNum > menuItems.size()){
+                throw new IllegalArgumentException("잘못된 접근입니다. 키오스크르 다시 실행해주세요.");
+            }
         }
     }
 }
