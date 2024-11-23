@@ -64,9 +64,10 @@ public class Kiosk {
                         selectMenuItem.getDescription()); // 설명 출력
                 System.out.println("");
             } else if(selectNum == 0) {
+                System.out.println("키오스크를 종료합니다.");
                 break;
             } else if (selectNum > menuCount){
-                throw new IllegalArgumentException("잘못된 접근입니다. 키오스크르 다시 실행해주세요.");
+                throw new IllegalArgumentException("잘못된 접근입니다. 키오스크를 다시 실행해주세요");
             }
         }
     }
