@@ -22,19 +22,22 @@ public class Kiosk {
     public void start() {
         while(true) {
 
-            int menuNum;   // 사용자가 선택한 메뉴 번호
-            MenuItem menuSelect;  //선택한 메뉴 정보를 받을 MenuItem 객체
+            int selectNum;   // 사용자가 선택한 메뉴 번호
+            int menuCount; // 메뉴의 개수
+            MenuItem selectMenuItem;  //선택한 메뉴 정보 저장
 
             Scanner sc = new Scanner(System.in);
 
+            menuCount = menuItems.size(); // meuuItems에 담긴 메뉴 개수 저장
+
             /**
              * 전체 메뉴 출력
-             * 메뉴가 전부 출력되기 위해 menuItem.size()만큼 반복할 수 있도록 설정
+             * 메뉴가 전부 출력되기 위해 menuCount 만큼 반복할 수 있도록 설정
              * i번째 인덱스에 있는 메뉴 정보들을 출력
              * 글자수에 구애받지 않고 동일한 포맷으로 출력할 수 있도록 정렬 수행
              * System.out.println("0. 종료"); 까지 한 세트
              */
-            for(int i=0; i<menuItems.size(); i++) {
+            for(int i=0; i<menuCount; i++) {
                 MenuItem menuItem = menuItems.get(i);
                 System.out.printf("%-2d. %-12s | W %3.1f | %s%n",
                         i+1, // 왼쪽 정렬하고 번호 출력
@@ -44,25 +47,25 @@ public class Kiosk {
             }
             System.out.println("0. 종료");
 
-            menuNum = sc.nextInt();  // 메뉴를 선택
+            selectNum = sc.nextInt();  // 메뉴를 선택
             sc.nextLine();
 
             /**
              * 선택 메뉴 출력
-             * 선택한 번호(menuNum)가 0이 아니고 메뉴 갯수(menuItems.size()) 범위 안에 해당하면 선택한 메뉴 출력
+             * 선택한 번호(selectNum)가 0이 아니고 메뉴 갯수(menuCount) 범위 안에 해당하면 선택한 메뉴 출력
              * 0이라면 반복문을 빠져나와 프로그램 종료
-             * menuItems.size()보다 큰 숫자를 선택하면 예외처리
+             * menuCount보다 큰 숫자를 선택하면 예외처리
              */
-            if ((menuNum != 0) && (menuNum <= menuItems.size())) {
-                menuSelect = menuItems.get(menuNum-1);    // 리스트 인덱스가 0부터 시작하는 규칙에 맞춤
+            if ((selectNum != 0) && (selectNum <= menuCount)) {
+                selectMenuItem = menuItems.get(selectNum-1);    // 리스트 인덱스가 0부터 시작하는 규칙에 맞춤
                 System.out.printf("선택한 메뉴:  %-12s | W %3.1f | %s%n",
-                        menuSelect.getName(), // 왼쪽 정렬하고 메뉴명 출력
-                        menuSelect.getPrice(), // 오른쪽 정렬하고 가격 출력
-                        menuSelect.getDescription()); // 설명 출력
+                        selectMenuItem.getName(), // 왼쪽 정렬하고 메뉴명 출력
+                        selectMenuItem.getPrice(), // 오른쪽 정렬하고 가격 출력
+                        selectMenuItem.getDescription()); // 설명 출력
                 System.out.println("");
-            } else if(menuNum == 0) {
+            } else if(selectNum == 0) {
                 break;
-            } else if (menuNum > menuItems.size()){
+            } else if (selectNum > menuCount){
                 throw new IllegalArgumentException("잘못된 접근입니다. 키오스크르 다시 실행해주세요.");
             }
         }
