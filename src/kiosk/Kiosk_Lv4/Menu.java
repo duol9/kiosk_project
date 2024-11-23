@@ -13,15 +13,20 @@ public class Menu {
         this.categoryName = categoryName;
         this.menuItems = menuItems;
     }
+
     //기능
     /**
      * List에 들어있는 MenuItem을 순차적으로 보여주는 메서드
-     * for문에서 menuItems.get(i)으로 하나씩 메뉴를 읽은 후 출력
+     * i번째 인덱스에 있는 메뉴 정보(메뉴명, 가격, 설명)를 menuCount만큼 순회해 출력
+     * 글자수에 구애받지 않고 동일한 포맷으로 출력할 수 있도록 정렬 수행
+     * System.out.println("0. 종료"); 까지 한 세트
      */
     public void displayMenuItems() {
         int menuCount; // 메뉴의 개수
         menuCount = menuItems.size(); // meuuItems에 담긴 메뉴 개수 저장
 
+        System.out.println(""); // 화면 구분을 위해 줄바꿈
+        System.out.println("[ " + getCategoryName() + " ] "); // 카테고리 출력
         for(int i=0; i<menuCount; i++) {
             MenuItem menuItem = menuItems.get(i);
             System.out.printf("%-2d. %-12s | W %3.1f | %s%n",
@@ -33,10 +38,14 @@ public class Menu {
         System.out.println("0. 종료");
     }
 
-    /**
-     * 메뉴 카테고리 이름을 외부로 반환
-     */
+
+    // 메뉴 카테고리 이름을 외부로 반환
     public String getCategoryName() {
         return this.categoryName;
+    }
+
+    // 메뉴 목록 외부로 반환
+    public List<MenuItem> getMenuItems() {
+        return this.menuItems;
     }
 }
