@@ -43,6 +43,22 @@ public class Kiosk {
                         menuItem.getDescription()); // 설명 출력
             }
             System.out.println("0. 종료");
+
+            menuNum = sc.nextInt();  // 메뉴를 선택한다.
+            sc.nextLine();
+
+            /**
+             * munuNum이 0이 아니면 해당하는 메뉴 출력
+             * 0이라면 반복문을 빠져나와 프로그램 종료
+             */
+            if (menuNum != 0) {
+                menuSelect = menuItems.get(menuNum-1);
+                System.out.printf("선택한 메뉴:  %-12s | W %3.1f | %s%n",
+                        menuSelect.getName(), // 왼쪽 정렬하고 메뉴명 출력
+                        menuSelect.getPrice(), // 오른쪽 정렬하고 가격 출력
+                        menuSelect.getDescription()); // 설명 출력
+                System.out.println("");
+            } else if(menuNum == 0) break;
         }
     }
 }
