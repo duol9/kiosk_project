@@ -37,6 +37,7 @@ public class Kiosk {
              * 글자수에 구애받지 않고 동일한 포맷으로 출력할 수 있도록 정렬 수행
              * System.out.println("0. 종료"); 까지 한 세트
              */
+            System.out.println("[ BURGERS MENU ]");
             for(int i=0; i<menuCount; i++) {
                 MenuItem menuItem = menuItems.get(i);
                 System.out.printf("%-2d. %-12s | W %3.1f | %s%n",
@@ -51,10 +52,10 @@ public class Kiosk {
             sc.nextLine();
 
             /**
-             * 선택 메뉴 출력
+             * 조건에 맞는(선택한) 메뉴 출력
              * 선택한 번호(selectNum)가 0이 아니고 메뉴 갯수(menuCount) 범위 안에 해당하면 선택한 메뉴 출력
-             * 0이라면 반복문을 빠져나와 프로그램 종료
-             * menuCount보다 큰 숫자를 선택하면 예외처리
+             * 0이라면 반복문을 빠져나와 start 메서드 종료 후 MAIN MENU 화면으로 돌아감
+             * 유효 범위( menuCount보다 큰 숫자 )를 벗어난 번호를 선택하면 예외처리
              */
             if ((selectNum != 0) && (selectNum <= menuCount)) {
                 selectMenuItem = menuItems.get(selectNum-1);    // 리스트 인덱스가 0부터 시작하는 규칙에 맞춤
@@ -64,7 +65,6 @@ public class Kiosk {
                         selectMenuItem.getDescription()); // 설명 출력
                 System.out.println("");
             } else if(selectNum == 0) {
-                System.out.println("키오스크를 종료합니다.");
                 break;
             } else if (selectNum > menuCount){
                 throw new IllegalArgumentException("잘못된 접근입니다. 키오스크를 다시 실행해주세요");
