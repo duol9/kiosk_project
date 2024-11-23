@@ -2,44 +2,69 @@ package kiosk.Kiosk_Lv4;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
+// 메뉴 관리 및 키오스크 실행
 public class Main {
     public static void main(String[] args) {
 
-        int selectNum;
-        List<MenuItem> menuItems = new ArrayList<>(); // 메뉴(객체)를 담을 리스트 선언
+        List<Menu> menus =new ArrayList<>(); //카테고리 리스트
 
-        Scanner sc = new Scanner(System.in);
+        List<MenuItem> burgerMenuItems = new ArrayList<>(); // 햄버거 메뉴 리스트
+        Menu burgerMenu;  // 햄버거 메뉴
 
-        // 객체(메뉴)를 생성하고 List에 추가
-        menuItems.add(new MenuItem("ShackBurger", 6.9f, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"));
-        menuItems.add(new MenuItem("SmokeShack", 8.9f, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"));
-        menuItems.add(new MenuItem("Cheeseburger", 6.9f, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거"));
-        menuItems.add(new MenuItem("Hamburger", 5.4f, "비프패티를 기반으로 야채가 들어간 기본버거"));
+        List<MenuItem> drinkMenuItems = new ArrayList<>(); // 음료 메뉴 리스트
+        Menu drinkMenu;   // 음료 메뉴
 
-        Kiosk kiosk = new Kiosk(menuItems); // kiosk 객체를 생성하고 메뉴 목록 리스트 넘김
+        List<MenuItem> dessertMenuItems = new ArrayList<>(); // 디저트 메뉴 리스트
+        Menu dessertMenu; // 디저트 메뉴
 
         /**
-         * 메뉴 카테고리를 무한으로 고를 수 있는 반복문
-         * 1번을 누르면 햄버거 키오스크 실행
-         * 0번을 누르면 반복문 벗어난 후 프로그램 종료
+         * 1. 헴버거
+         * 햄버거 리스트에 햄버거 메뉴 정보 추가
+         * 햄버거 카테고리에 햄버거 메뉴 저장
+         * 카테고리 리스트에 햄버거 추가
          */
-        while (true){
-            System.out.println("[ MAIN MENU ] ");
-            System.out.println("1. Burgers");
-            System.out.println("0. 종료 ");
+        burgerMenuItems.add(new MenuItem("ShackBurger", 6.9f, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"));
+        burgerMenuItems.add(new MenuItem("SmokeShack", 8.9f, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"));
+        burgerMenuItems.add(new MenuItem("Cheeseburger", 6.9f, "포테이토 번과 비프패티, 치즈가 토핑된 치즈버거"));
+        burgerMenuItems.add(new MenuItem("Hamburger", 5.4f, "비프패티를 기반으로 야채가 들어간 기본버거"));
 
-            selectNum = sc.nextInt();
-            sc.nextLine();
-            System.out.println(""); // 다음 화면과 분리하기 위해 한 줄 띄움
+        burgerMenu = new Menu("Burgers", burgerMenuItems);
+        menus.add(burgerMenu);
 
-            if (selectNum == 1) {
-                kiosk.start();
-            } else if (selectNum == 0) {
-                System.out.println("프로그램을 종료합니다.");
-                break;
-            }
-        }
+        /**
+         * 2. 음료
+         * 음료 리스트에 음료 메뉴 정보 추가
+         * 음료 카테고리에 음료 메뉴 저장
+         * 카테고리 리스트에 음료 추가
+         */
+        drinkMenuItems.add(new MenuItem("Coke", 3.0f, "코카 콜라"));
+        drinkMenuItems.add(new MenuItem("CokeZero", 3.5f, "코카 콜라 제로"));
+        drinkMenuItems.add(new MenuItem("Sprite", 3.0f, "스프라이트"));
+        drinkMenuItems.add(new MenuItem("fanta (Orange)", 3.0f, "오렌지맛 환타"));
+        drinkMenuItems.add(new MenuItem("fanta (Grape)", 3.0f, "포도맛 환타"));
+
+        drinkMenu = new Menu("Drinks", drinkMenuItems);
+        menus.add(drinkMenu);
+
+        /**
+         * 3. 디저트
+         * 디저트 리스트에 디저트 메뉴 정보 추가
+         * 디저트 카테고리에 디저트 메뉴 저장
+         * 카테고리 리스트에 디저트 추가
+         */
+        dessertMenuItems.add(new MenuItem("French Fries", 4.0f, "짭짤한 감자 튀김"));
+        dessertMenuItems.add(new MenuItem("Sweet Potato Fries", 4.0f, "달달한 고구마 튀김"));
+        dessertMenuItems.add(new MenuItem("Fried Calamari", 4.0f, "오징어 튀김"));
+
+        dessertMenu = new Menu("Desserts", dessertMenuItems);
+        menus.add(dessertMenu);
+
+
+        // 카테고리 목록들과 메뉴 정보가 담긴 리스트를 저장한 Kiosk 객체 생성
+        Kiosk kiosk = new Kiosk(menus); // kiosk 객체를 생성하고 메뉴 목록 리스트 넘김
+
+        // 키오스크 실행
+        kiosk.start();
     }
 }
