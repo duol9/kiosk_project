@@ -20,8 +20,8 @@ public class Menu {
      */
     public void displayMenuCategory() {
 
-        int categoryCount;
-        categoryCount = categoryNames.size();
+        int categoryCount;  // 카테고리 개수
+        categoryCount = categoryNames.size(); // categoryNames에 담긴 카테고리 개수 저장
 
         for (int i = 0; i<categoryCount; i++){
             String categoryName = categoryNames.get(i);
