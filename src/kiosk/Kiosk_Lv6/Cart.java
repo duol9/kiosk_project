@@ -47,8 +47,11 @@ public class Cart {
      * @return totalPrice (장바구니 총 합)
      */
     public float menuTotalPrice() {
-        float totalPrice;
+        float totalPrice = 0;
 
+        for (int i = 0; i<this.menuItems.size(); i++) {
+            totalPrice += this.menuItems.get(i).getPrice();
+        }
         return totalPrice;
     }
 }
