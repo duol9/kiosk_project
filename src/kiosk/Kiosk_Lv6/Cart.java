@@ -21,7 +21,7 @@ public class Cart {
      * @param menuItem (선택된 메뉴)
      */
     public void addToCart(MenuItem menuItem) {
-
+        this.menuItems.add(menuItem);
     }
 
     /**
