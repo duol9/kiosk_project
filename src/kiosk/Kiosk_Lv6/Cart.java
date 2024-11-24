@@ -18,10 +18,12 @@ public class Cart {
     /**
      * 장바구니 추가
      * 선택한 메뉴를 받아오면 menuItems에 추가
+     * 추가되었다는 안내 메세지 출력
      * @param menuItem (선택된 메뉴)
      */
     public void addToCart(MenuItem menuItem) {
         this.menuItems.add(menuItem);
+        System.out.println(menuItem.getName() + " 이 장바구니에 추가되었습니다. ");
     }
 
     /**
@@ -29,6 +31,7 @@ public class Cart {
      * 장바구니에 담겨있는 (menuItems) 메뉴들 전부 사용자에게 보여줌
      */
     public void displayCart() {
+
 
     }
 
