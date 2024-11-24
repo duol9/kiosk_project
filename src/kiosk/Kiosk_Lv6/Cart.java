@@ -28,11 +28,16 @@ public class Cart {
 
     /**
      * 장바구니 목록 출력
-     * 장바구니에 담겨있는 (menuItems) 메뉴들 전부 사용자에게 보여줌
+     * 장바구니에 담겨있는 (menuItems) 메뉴 리스트 인덱스 처음부터 순회해서 메뉴명, 가격, 설명 출력
      */
     public void displayCart() {
-
-
+        for (int i = 0; i<this.menuItems.size(); i++) {
+            System.out.printf("%-20s | W %3.1f | %s%n ",
+                    this.menuItems.get(i).getName(),
+                    this.menuItems.get(i).getPrice(),
+                    this.menuItems.get(i).getDescription());
+        }
+        System.out.println(""); // 화면 구분
     }
 
     /**
