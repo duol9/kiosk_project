@@ -54,4 +54,12 @@ public class Cart {
         }
         return totalPrice;
     }
+
+    /**
+     * 장바구니 초기화
+     * 메뉴 리스트 비움(clear)
+     */
+    public void cartClear() {
+        this.menuItems.clear();
+    }
 }
