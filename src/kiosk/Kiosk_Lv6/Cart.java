@@ -24,6 +24,7 @@ public class Cart {
     public void addToCart(MenuItem menuItem) {
         this.menuItems.add(menuItem);
         System.out.println(menuItem.getName() + " 이 장바구니에 추가되었습니다. ");
+        System.out.println(""); //화면 구분을 위한 공백 출력
     }
 
     /**
