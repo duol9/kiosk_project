@@ -1,4 +1,4 @@
-package kiosk.Kiosk_Lv5;
+package kiosk.Kiosk_Lv6;
 
 import java.util.List;
 import java.util.Scanner;
