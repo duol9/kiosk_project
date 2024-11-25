@@ -137,7 +137,7 @@ public class Kiosk {
                             isCartEmpty = true;
                             break;
                         case 2:
-                            continue;
+                            break;
                         default:
                             throw new IllegalArgumentException("유효하지 않는 번호입니다. 키오스크를 다시 실행해주세요");
                     }
