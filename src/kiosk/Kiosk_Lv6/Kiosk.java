@@ -32,6 +32,8 @@ public class Kiosk {
             int categoryCount = menus.size(); // 카테고리 개수
 
             int addToCartChoice; //장바구니 추가 선택
+            int orderChoice;     //주문 선택
+            boolean isCartEmpty = false; //장바구니 존재 여부
 
             Scanner sc = new Scanner(System.in);
 
@@ -48,24 +50,38 @@ public class Kiosk {
             }
             System.out.println("0. 종료");
 
+            /**
+             * 주문 ( [ORDER MENU] ) 기능
+             * 장바구니에 메뉴가 존재할 때만 사용 가능; isCartEmpty = true
+             * 메뉴 카테고리 다음 번호부터 시작; categoryCount+1
+             */
+            if (isCartEmpty) {
+                System.out.println(""); //화면 구분을 위해 줄바꿈 수행
+                System.out.println("[ ORDER MENU ]");
+                System.out.printf("%d. Orders        | 장바구니를 확인 후 주문합니다.%n", (categoryCount+1));
+                System.out.printf("%d. Cancel        | 진행중인 주문을 취소합니다.%n", (categoryCount+2));
+            }
+
             selectCategoryNum = sc.nextInt();  // 카테고리를 선택
             sc.nextLine();
             System.out.println(""); // 화면 구분을 위해 줄바꿈 수행
 
             /**
-             * 카테고리 선택에 맞는 메뉴 목록 출력 및 메뉴 선택
+             * 카테고리 선택에 맞는 동작 실행 (메뉴 선택, 주문 선택)
              * 1. 선택한 카테고리가 0이 아니고 유효범위 내에 있을 때
              *    1-1. 카테고리에 맞는 메뉴 목록 출력
              *    1-2. 메뉴 선택
              *          1) 메뉴 선택(유효범위 내) 시 해당하는 메뉴 출력 후 장바구니에 추가 할 지 선택
              *          2) 0 선택 시 카테고리 선택으로 이동 (continue 동작으로 반복문 처음 코드로 돌아감 )
              *          3) 유효범위 밖 선택 시 메세지 출력하고 예외 처리
-             * 2. 선택한 카테고리가 0일 때
+             * 2. (Order 선택 & 장바구니에 메뉴가 있을 때) 장바구니에 들어있는 메뉴와 총 금액 확인 후 주문 결정
+             * 3. (Cancle 선택 & 장바구니에 메뉴가 있을 때) 장바구니 초기화 후 카테고리 선택으로 돌아감
+             * 4. 선택한 카테고리가 0일 때
              *    2-1. 반복문 빠져나가고 start 메서드 종료 후 프로그램 종료
-             * 3. 선택한 카테고리가 유효범위 밖일 때
-             *    3-1. 메시지 출력하고 예외 처리
+             * 5. 그 외
+             *    3-1. 예외처리 후 원인 안내
              */
-            if ((selectCategoryNum != 0) && (selectCategoryNum <= categoryCount)) {
+            if ((selectCategoryNum != 0) && (selectCategoryNum <= categoryCount)) { // 카테고리 선택
 
                 // 선택한 카테고리의 메뉴 목록 출력
                 menus.get(selectCategoryNum-1).displayMenuItems();
@@ -80,11 +96,18 @@ public class Kiosk {
 
                 /**
                  * 선택한 메뉴 출력
-                 * 1. 메뉴 선택 시(유효범위 안) 선택한 메뉴(이름, 가격, 설명) 안내 후 장바구니에 추가 할 지 결정
-                 * 2. '0' 선택 시 카테고리부터 다시 선택
-                 * 3. 유효 범위( menuCount보다 큰 숫자 )를 벗어난 번호를 선택하면 예외처리
+                 * 1. 메뉴 선택 시(유효범위 안)
+                 *      1-1. 선택한 메뉴(이름, 가격, 설명) 안내
+                 *      1-2. 장바구니에 추가 할 지 결정
+                 *          switch문
+                 *          case1 (장바구니 추가): isCartEmpty = true가 할당되면서 주문 기능 활성화
+                 *          case2 (장바구니 추가 취소): 카테고리 선택 화면으로 돌아감
+                 * 2. '0. 뒤로가기' 선택
+                 *      2-1. 카테고리부터 다시 선택
+                 * 3. 그 외 (유효범위 밖)
+                 *      3-1. 예외처리 후 원인 안내
                  */
-                if ((selectMenuNum != 0) && (selectMenuNum <= menuCount)) {
+                if ((selectMenuNum != 0) && (selectMenuNum <= menuCount)) {  // 메뉴 선택
                     selectMenuItem = menuItemsByCategory.get(selectMenuNum -1);    // 리스트 인덱스가 0부터 시작하는 규칙에 맞춤
 
                     System.out.printf("선택한 메뉴:  %-20s | W %3.1f | %s%n",
@@ -103,27 +126,57 @@ public class Kiosk {
                     sc.nextLine();
                     System.out.println(""); // 화면 구분을 위해 줄바꿈 수행
 
+                    /**
+                     * 장바구니 추가 선택
+                     * case1 : 장바구니 추가
+                     * case2 : 장바구니 추가 취소
+                     */
                     switch (addToCartChoice){
                         case 1:
                             cart.addToCart(selectMenuItem);
+                            isCartEmpty = true;
                             break;
                         case 2:
                             continue;
                         default:
                             throw new IllegalArgumentException("유효하지 않는 번호입니다. 키오스크를 다시 실행해주세요");
                     }
-
-                } else if(selectMenuNum == 0) {
+                } else if(selectMenuNum == 0) {  // '0. 뒤로가기'
                     System.out.println(""); // 화면 구분을 위해 줄바꿈 수행
                     continue;
-
-                } else if (selectMenuNum > menuCount){
+                } else {
                     throw new IllegalArgumentException("잘못된 접근입니다. 키오스크를 다시 실행해주세요");
                 }
+            } else if (isCartEmpty && (selectCategoryNum == (categoryCount+1))){  // (Order 메뉴 활성화) 'Order (주문하기)'
+                System.out.println("아래와 같이 주문하시겠습니까?");
+                System.out.println("");
+                System.out.println("[ Orders ]");
+                cart.displayCart(); //장바구니 목록 출력 메서드
 
-            } else if (selectCategoryNum == 0) {
+                System.out.println("[ Total ]");
+                System.out.printf("W %.1f%n", cart.menuTotalPrice());  //장바구니 총 금액 반환 메서드
+                System.out.println("");
+
+                System.out.println("1. 주문          2. 메뉴판");
+                orderChoice = sc.nextInt();
+                sc.nextLine();
+
+                if (orderChoice == 1) { // '1. 주문'
+                    System.out.printf("주문이 완료되었습니다. 금액은 W %.1f 입니다.%n", cart.menuTotalPrice());
+                    cart.cartClear();
+                    break;
+                } else if (orderChoice == 2) { // '2. 메뉴판'
+                    continue;
+                } else {
+                    throw new IllegalArgumentException("잘못된 접근입니다. 키오스크를 다시 실행해주세요");
+                }
+            } else if (isCartEmpty && (selectCategoryNum == (categoryCount+2))) {  //(order메뉴 활성화) 'Cancle(주문취소)'
+                cart.cartClear();
+                isCartEmpty = false;
+                continue;
+            } else if (selectCategoryNum == 0) {  // '0. 종료'
                 break;
-            } else if (selectCategoryNum > categoryCount){
+            } else {
                 throw new IllegalArgumentException("잘못된 접근입니다. 키오스크를 다시 실행해주세요");
             }
         }
