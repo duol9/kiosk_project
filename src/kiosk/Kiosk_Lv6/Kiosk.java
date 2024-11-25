@@ -110,13 +110,13 @@ public class Kiosk {
                 if ((selectMenuNum != 0) && (selectMenuNum <= menuCount)) {  // 메뉴 선택
                     selectMenuItem = menuItemsByCategory.get(selectMenuNum -1);    // 리스트 인덱스가 0부터 시작하는 규칙에 맞춤
 
-                    System.out.printf("선택한 메뉴:  %-20s | W %3.1f | %s%n",
+                    System.out.printf("선택한 메뉴:  %-18s | W %3.1f | %s%n",
                             selectMenuItem.getName(),
                             selectMenuItem.getPrice(),
                             selectMenuItem.getDescription());
                     System.out.println(""); // 화면 구분을 위해 줄바꿈 수행
 
-                    System.out.printf("\"%-20s | W %3.1f | %s\"%n",
+                    System.out.printf("\"%-18s | W %3.1f | %s\"%n",
                             selectMenuItem.getName(),
                             selectMenuItem.getPrice(),
                             selectMenuItem.getDescription());
