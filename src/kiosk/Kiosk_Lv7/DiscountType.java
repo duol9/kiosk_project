@@ -33,7 +33,7 @@ public enum DiscountType {
     public static void displayDiscountInfo () {
         int i = 1;
         for (DiscountType type : DiscountType.values()) {
-            System.out.printf("%d. %-10s : %.0f%%n",
+            System.out.printf("%d. %-5s : %.0f%%%n",
                     i++,
                     type.getGuestType(),
                     type.getDiscountRate() * 100);
@@ -45,7 +45,7 @@ public enum DiscountType {
      * @param originalPrice (원래가격)
      * @return 할인된 가격
      */
-    public float calcurateDiscountPrice(float originalPrice) {
+    public float calculateDiscountPrice(float originalPrice) {
         return originalPrice * (1 - discountRate);
     }
 }
