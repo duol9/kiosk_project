@@ -1,4 +1,4 @@
-package kiosk.Kiosk_Lv6;
+package kiosk.Kiosk_Lv7;
 
 // 음식 항목 관리
 public class MenuItem {
