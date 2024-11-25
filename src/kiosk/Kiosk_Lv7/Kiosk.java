@@ -35,6 +35,10 @@ public class Kiosk {
             int orderChoice;     //주문 선택
             boolean isCartEmpty = false; //장바구니 존재 여부
 
+            int discountTypeChoice;  //할인 유형 선택
+
+            float totalPrice;
+
             Scanner sc = new Scanner(System.in);
 
 
@@ -74,7 +78,7 @@ public class Kiosk {
              *          1) 메뉴 선택(유효범위 내) 시 해당하는 메뉴 출력 후 장바구니에 추가 할 지 선택
              *          2) 0 선택 시 카테고리 선택으로 이동 (continue 동작으로 반복문 처음 코드로 돌아감 )
              *          3) 유효범위 밖 선택 시 메세지 출력하고 예외 처리
-             * 2. (Order 선택 & 장바구니에 메뉴가 있을 때) 장바구니에 들어있는 메뉴와 총 금액 확인 후 주문 결정
+             * 2. (Order 선택 & 장바구니에 메뉴가 있을 때) 장바구니에 들어있는 메뉴와 총 금액 확인 -> 할인 선택 선택 후 주문
              * 3. (Cancle 선택 & 장바구니에 메뉴가 있을 때) 장바구니 초기화 후 카테고리 선택으로 돌아감
              * 4. 선택한 카테고리가 0일 때
              *    2-1. 반복문 빠져나가고 start 메서드 종료 후 프로그램 종료
@@ -150,19 +154,32 @@ public class Kiosk {
             } else if (isCartEmpty && (selectCategoryNum == (categoryCount+1))){  // (Order 메뉴 활성화) 'Order (주문하기)'
                 System.out.println("아래와 같이 주문하시겠습니까?");
                 System.out.println("");
+
                 System.out.println("[ Orders ]");
                 cart.displayCart(); //장바구니 목록 출력 메서드
 
+                totalPrice = cart.menuTotalPrice();
+
                 System.out.println("[ Total ]");
-                System.out.printf("W %.1f%n", cart.menuTotalPrice());  //장바구니 총 금액 반환 메서드
+                System.out.printf("W %.1f%n", totalPrice);  //장바구니 총 금액 반환 메서드
                 System.out.println("");
 
                 System.out.println("1. 주문          2. 메뉴판");
                 orderChoice = sc.nextInt();
                 sc.nextLine();
+                System.out.println("");
 
                 if (orderChoice == 1) { // '1. 주문'
-                    System.out.printf("주문이 완료되었습니다. 금액은 W %.1f 입니다.%n", cart.menuTotalPrice());
+                    System.out.println("할인 정보를 입력해주세요.");
+                    DiscountType.displayDiscountInfo(); // 할인 정보 출력
+                    System.out.println("");
+
+                    discountTypeChoice = sc.nextInt();
+                    sc.nextLine();
+
+                    // 선택한 할인 유형 번호를 인덱스 취급해 해당 enum상수를 가져옴
+                    DiscountType discountType = (DiscountType.values())[discountTypeChoice-1];
+                    System.out.printf("주문이 완료되었습니다. 금액은 W %.1f 입니다.%n", discountType.calcurateDiscountPrice(totalPrice));
                     cart.cartClear();
                     break;
                 } else if (orderChoice == 2) { // '2. 메뉴판'
