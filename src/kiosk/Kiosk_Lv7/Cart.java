@@ -32,7 +32,7 @@ public class Cart {
      */
     public void displayCart() {
         for (int i = 0; i<this.menuItems.size(); i++) {
-            System.out.printf("%-20s | W %3.1f | %s%n ",
+            System.out.printf("%-18s | W %3.1f | %s%n",
                     this.menuItems.get(i).getName(),
                     this.menuItems.get(i).getPrice(),
                     this.menuItems.get(i).getDescription());
