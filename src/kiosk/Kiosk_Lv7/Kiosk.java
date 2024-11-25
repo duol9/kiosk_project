@@ -171,10 +171,10 @@ public class Kiosk {
                 if (orderChoice == 1) { // '1. 주문'
                     System.out.println("할인 정보를 입력해주세요.");
                     DiscountType.displayDiscountInfo(); // 할인 정보 출력
-                    System.out.println("");
 
                     discountTypeChoice = sc.nextInt();
                     sc.nextLine();
+                    System.out.println("");
 
                     // 선택한 할인 유형 번호를 인덱스 취급해 해당 enum상수를 가져옴
                     DiscountType discountType = (DiscountType.values())[discountTypeChoice-1];
