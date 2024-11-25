@@ -21,23 +21,22 @@ public class Kiosk {
      * 메뉴를 보고 사용자가 직접 선택할 수 있는 키오스크를 실행시키는 메서드
      */
     public void start() {
+        List<MenuItem> menuItemsByCategory; // 카테고리에 맞는 메뉴 목록
+        MenuItem selectMenuItem;  //선택한 메뉴 정보 저장
+
+        int selectMenuNum; // 사용자가 선택한 메뉴 번호
+        int menuCount; // 메뉴의 개수
+
+        int selectCategoryNum; // 카테고리 선택
+        int categoryCount = menus.size(); // 카테고리 개수
+
+        int addToCartChoice; //장바구니 추가 선택
+        int orderChoice;     //주문 선택
+        boolean hasItemsInCart = false; //장바구니 존재 여부
+
+        Scanner sc = new Scanner(System.in);
+
         while(true) {
-            List<MenuItem> menuItemsByCategory; // 카테고리에 맞는 메뉴 목록
-            MenuItem selectMenuItem;  //선택한 메뉴 정보 저장
-
-            int selectMenuNum; // 사용자가 선택한 메뉴 번호
-            int menuCount; // 메뉴의 개수
-
-            int selectCategoryNum; // 카테고리 선택
-            int categoryCount = menus.size(); // 카테고리 개수
-
-            int addToCartChoice; //장바구니 추가 선택
-            int orderChoice;     //주문 선택
-            boolean isCartEmpty = false; //장바구니 존재 여부
-
-            Scanner sc = new Scanner(System.in);
-
-
             /**
              * 카테고리 출력
              * Menu 클래스 객체들을 저장한 리스트 menus에서 인덱스를 활용해 각 menu객체에 들어있는 카테고리명을 가져와 출력
@@ -49,14 +48,14 @@ public class Kiosk {
                         menus.get(i).getCategoryName());
             }
             System.out.println("0. 종료");
+            System.out.println("");
 
             /**
              * 주문 ( [ORDER MENU] ) 기능
-             * 장바구니에 메뉴가 존재할 때만 사용 가능; isCartEmpty = true
+             * 장바구니에 메뉴가 존재할 때만 사용 가능; hasItemsInCart = true
              * 메뉴 카테고리 다음 번호부터 시작; categoryCount+1
              */
-            if (isCartEmpty) {
-                System.out.println(""); //화면 구분을 위해 줄바꿈 수행
+            if (hasItemsInCart) {
                 System.out.println("[ ORDER MENU ]");
                 System.out.printf("%d. Orders        | 장바구니를 확인 후 주문합니다.%n", (categoryCount+1));
                 System.out.printf("%d. Cancel        | 진행중인 주문을 취소합니다.%n", (categoryCount+2));
@@ -100,7 +99,7 @@ public class Kiosk {
                  *      1-1. 선택한 메뉴(이름, 가격, 설명) 안내
                  *      1-2. 장바구니에 추가 할 지 결정
                  *          switch문
-                 *          case1 (장바구니 추가): isCartEmpty = true가 할당되면서 주문 기능 활성화
+                 *          case1 (장바구니 추가): hasItemsInCart = true가 할당되면서 주문 기능 활성화
                  *          case2 (장바구니 추가 취소): 카테고리 선택 화면으로 돌아감
                  * 2. '0. 뒤로가기' 선택
                  *      2-1. 카테고리부터 다시 선택
@@ -134,7 +133,7 @@ public class Kiosk {
                     switch (addToCartChoice){
                         case 1:
                             cart.addToCart(selectMenuItem);
-                            isCartEmpty = true;
+                            hasItemsInCart = true;
                             break;
                         case 2:
                             break;
@@ -147,9 +146,10 @@ public class Kiosk {
                 } else {
                     throw new IllegalArgumentException("잘못된 접근입니다. 키오스크를 다시 실행해주세요");
                 }
-            } else if (isCartEmpty && (selectCategoryNum == (categoryCount+1))){  // (Order 메뉴 활성화) 'Order (주문하기)'
+            } else if (hasItemsInCart && (selectCategoryNum == (categoryCount+1))){  // (Order 메뉴 활성화) 'Order (주문하기)'
                 System.out.println("아래와 같이 주문하시겠습니까?");
                 System.out.println("");
+
                 System.out.println("[ Orders ]");
                 cart.displayCart(); //장바구니 목록 출력 메서드
 
@@ -160,6 +160,7 @@ public class Kiosk {
                 System.out.println("1. 주문          2. 메뉴판");
                 orderChoice = sc.nextInt();
                 sc.nextLine();
+                System.out.println(""); //화면 구분을 위한 줄바꿈
 
                 if (orderChoice == 1) { // '1. 주문'
                     System.out.printf("주문이 완료되었습니다. 금액은 W %.1f 입니다.%n", cart.menuTotalPrice());
@@ -170,9 +171,9 @@ public class Kiosk {
                 } else {
                     throw new IllegalArgumentException("잘못된 접근입니다. 키오스크를 다시 실행해주세요");
                 }
-            } else if (isCartEmpty && (selectCategoryNum == (categoryCount+2))) {  //(order메뉴 활성화) 'Cancle(주문취소)'
+            } else if (hasItemsInCart && (selectCategoryNum == (categoryCount+2))) {  //(order메뉴 활성화) 'Cancle(주문취소)'
                 cart.cartClear();
-                isCartEmpty = false;
+                hasItemsInCart = false;
                 continue;
             } else if (selectCategoryNum == 0) {  // '0. 종료'
                 break;
