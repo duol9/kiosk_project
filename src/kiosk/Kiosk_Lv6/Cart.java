@@ -62,4 +62,13 @@ public class Cart {
     public void cartClear() {
         this.menuItems.clear();
     }
+
+    /**
+     * 장바구니 열람
+     * 확인해서 수량을 셀 수도 있고, 장바구니에 물건이 존재하는지 확인 등등
+     * @return ( List<MenuItem> ) 장바구니 리스트
+     */
+    public List<MenuItem> getMenuItems() {
+        return this.menuItems;
+    }
 }
