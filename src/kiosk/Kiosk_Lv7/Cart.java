@@ -1,6 +1,7 @@
 package kiosk.Kiosk_Lv7;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 // 장바구니 관리
 public class Cart {
@@ -69,5 +70,18 @@ public class Cart {
      */
     public List<MenuItem> getMenuItems() {
         return this.menuItems;
+    }
+
+    /**
+     * 장바구니 메뉴 삭제
+     * 장바구니에 담긴 메뉴(menuItem) 이름이 removeMenuItems에 포함되어 있나 확인하고; removeMenuItems.contains(menuItem.getName())
+     * 포함되어 있지 않은 것들 만을 선택하여; filter(!contains)
+     * 선택된 스트림 요소들을 리스트로 반환; collect(Collectors.toList())
+     * @param removeMenuItems (장바구니에서 삭제할 메뉴 리스트)
+     */
+    public void removeCartMenuItem (List<String> removeMenuItems) {
+        this.menuItems = this.menuItems.stream()
+                .filter(menuItem -> !removeMenuItems.contains(menuItem.getName()))
+                .collect(Collectors.toList());
     }
 }
