@@ -30,6 +30,9 @@ Java로 구현된 기본적인 키오스크 애플리케이션입니다. <br>
 3. 입력한 메뉴의 정보(이름, 가격, 설명) 확인
 4. '0'을 입하기 전까지 반복 실행
 
+![image](https://github.com/user-attachments/assets/f3b10df4-486d-4cd0-8328-f128a5588f99)
+
+
 ## 프로젝트 구조
 ### Kiosk 클래스
 - 주요 변수
