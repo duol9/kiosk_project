@@ -192,7 +192,7 @@ public class Kiosk {
                 } else if (orderChoice == 2) { // 2. 메뉴 삭제
                     System.out.println("삭제할 메뉴의 이름을 쉼표(,)로 구분하여 입력해주세요.");
                     removeMenuItem = sc.nextLine();
-                    removeMenusItemList = Arrays.asList(removeMenuItem.split(","));  //쉼표로 구분하여 리스트에 넣어줌
+                    removeMenusItemList = new ArrayList<>(Arrays.asList(removeMenuItem.split(",\\s*")));  //정규표현식을 사용해 쉼표 뒤에 0개 이상의 공백이 오면 구분, clear()메서드를 사용하기 위해 가변크기 ArrayList를 형태로 생성
                     cart.removeCartMenuItem(removeMenusItemList); // 장바구니 메뉴 삭제 메소드 호출
 
                     removeMenusItemList.clear(); // 리스트 요소 초기화
