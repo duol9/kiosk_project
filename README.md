@@ -47,7 +47,7 @@ Java로 구현된 기본적인 키오스크 애플리케이션입니다. <br>
       - `default` : 동작X
     - `'0'` 입력시 반복문 종료와 동시에 프로그램 종료
    
-## 개선 사항
-- 객체지향설계를 적용해 메뉴 정보 클래스로 관리<br>
+## 향후 개선 사항
+- 객체지향설계를 적용해 메뉴 정보를 클래스로 관리<br>
 
-#### update ver; https://github.com/duol9/kiosk_project/tree/Level2
+#### Update Ver; https://github.com/duol9/kiosk_project/tree/Level2
