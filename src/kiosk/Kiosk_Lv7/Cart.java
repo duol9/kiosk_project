@@ -32,12 +32,12 @@ public class Cart {
      * 장바구니에 담겨있는 (menuItems) 메뉴 리스트 인덱스 처음부터 순회해서 메뉴명, 가격, 설명 출력
      */
     public void displayCart() {
-        for (int i = 0; i<this.menuItems.size(); i++) {
-            System.out.printf("%-18s | W %3.1f | %s%n",
-                    this.menuItems.get(i).getName(),
-                    this.menuItems.get(i).getPrice(),
-                    this.menuItems.get(i).getDescription());
-        }
+        this.menuItems.stream()
+                .map(menuItem -> String.format("%-18s | W %3.1f | %s",
+                        menuItem.getName(),
+                        menuItem.getPrice(),
+                        menuItem.getDescription()))
+                .forEach(System.out::println);
         System.out.println(""); // 화면 구분
     }
 
@@ -47,12 +47,18 @@ public class Cart {
      * @return totalPrice (장바구니 총 합)
      */
     public float cartTotalPrice() {
-        float totalPrice = 0;
 
+        return this.menuItems.stream()
+                .map(MenuItem::getPrice)
+                .reduce(0f, Float::sum);
+
+        /*
+        float totalPrice = 0;
         for (int i = 0; i<this.menuItems.size(); i++) {
             totalPrice += this.menuItems.get(i).getPrice();
         }
         return totalPrice;
+         */
     }
 
     /**

@@ -51,11 +51,17 @@ public class Kiosk {
              * Menu 클래스 객체들을 저장한 리스트 menus에서 인덱스를 활용해 각 menu객체에 들어있는 카테고리명을 가져와 출력
              */
             System.out.println("[ MAIN MENU ]");
-            for (int i = 0; i<categoryCount; i++) {
+            this.menus.stream()
+                    .map(menu -> String.format("%d. %s",
+                            menus.indexOf(menu) + 1,
+                            menu.getCategoryName()))
+                    .forEach(System.out::println);
+
+            /*for (int i = 0; i<categoryCount; i++) {
                 System.out.printf("%d. %s%n",
                         i+1,
                         menus.get(i).getCategoryName());
-            }
+            }*/
             System.out.println("0. 종료");
 
             /**
@@ -192,7 +198,7 @@ public class Kiosk {
                 } else if (orderChoice == 2) { // 2. 메뉴 삭제
                     System.out.println("삭제할 메뉴의 이름을 쉼표(,)로 구분하여 입력해주세요.");
                     removeMenuItem = sc.nextLine();
-                    removeMenusItemList = new ArrayList<>(Arrays.asList(removeMenuItem.split(",\\s*")));  //정규표현식을 사용해 쉼표 뒤에 0개 이상의 공백이 오면 구분, clear()메서드를 사용하기 위해 가변크기 ArrayList를 형태로 생성
+                    removeMenusItemList = new ArrayList<>(Arrays.asList(removeMenuItem.split(",\\s*")));  //정규표현식을 사용해 쉼표 뒤에 0개 이상의 공백이 오면 구분, clear()메서드를 사용하기 위해 가변크기 ArrayList 형태로 생성
                     cart.removeCartMenuItem(removeMenusItemList); // 장바구니 메뉴 삭제 메소드 호출
 
                     removeMenusItemList.clear(); // 리스트 요소 초기화
@@ -200,7 +206,6 @@ public class Kiosk {
                     System.out.println(""); // 화면 구분을 위한 줄바꿈 수행
 
                     System.out.println("[ Cart ]");
-
                     /**
                      * 장바구니 비어있는지 확인
                      * 비어있으면 Order Menu 비활성화; hasMenuItemInCart = false
