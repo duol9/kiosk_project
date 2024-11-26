@@ -165,7 +165,7 @@ public class Kiosk {
                 System.out.println("[ Orders ]");
                 cart.displayCart(); //장바구니 목록 출력 메서드
 
-                totalPrice = cart.menuTotalPrice();
+                totalPrice = cart.cartTotalPrice();
 
                 System.out.println("[ Total ]");
                 System.out.printf("W %.1f%n", totalPrice);  //장바구니 총 금액 반환 메서드

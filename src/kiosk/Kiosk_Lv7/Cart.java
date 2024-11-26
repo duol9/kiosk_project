@@ -46,7 +46,7 @@ public class Cart {
      * 장바구니에 담긴 메뉴 가격들을 전부 계산 후 반환
      * @return totalPrice (장바구니 총 합)
      */
-    public float menuTotalPrice() {
+    public float cartTotalPrice() {
         float totalPrice = 0;
 
         for (int i = 0; i<this.menuItems.size(); i++) {
