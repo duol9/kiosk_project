@@ -16,24 +16,23 @@ public class Menu {
 
     //기능
     /**
-     * List에 들어있는 MenuItem을 순차적으로 보여주는 메서드
-     * i번째 인덱스에 있는 메뉴 정보(메뉴명, 가격, 설명)를 menuCount만큼 순회해 출력
-     * 글자수에 구애받지 않고 동일한 포맷으로 출력할 수 있도록 정렬 수행
+     * 카테고리(List<MenuItem>)에 들어있는 MenuItem을 순차적으로 보여주는 메서드
+     * stream()을 사용해 List<MenuItem> menuItems에 들어있는 menuItem 객체들을 스트림으로 생성
+     * 중간연산으로 map()을 사용해 menuItem의 원하는 요소들(순서, 메뉴명, 가격, 설명)을 뽑아 원하는 형식의 문자열로 바꿈
+     * 최종연산으로 형식화된 문자열을 출력
+     * this.menuItems.indexOf(menuItem) + 1 : menuItem이 menuItems의 몇 번째 인덱스인지 반환, 인덱스는 0부터 시작해 사용자가 보는 번호에 맞춰 +1 함
      * System.out.println("0. 종료"); 까지 한 세트
      */
     public void displayMenuItems() {
-        int menuCount; // 메뉴의 개수
-        menuCount = menuItems.size(); // meuuItems에 담긴 메뉴 개수 저장
 
-        System.out.println("[ " + getCategoryName().toUpperCase() + " MENU ] "); // 카테고리명 대문자로 변경 후 출력
-        for(int i=0; i<menuCount; i++) {
-            MenuItem menuItem = menuItems.get(i);
-            System.out.printf("%d. %-18s | W %3.1f | %s%n",
-                    i+1, // 왼쪽 정렬하고 번호 출력
-                    menuItem.getName(), // 왼쪽 정렬하고 메뉴명 출력
-                    menuItem.getPrice(), // 오른쪽 정렬하고 가격 출력
-                    menuItem.getDescription()); // 설명 출력
-        }
+        System.out.println("[ " + getCategoryName().toUpperCase() + " MENU ] ");
+
+        this.menuItems.stream().map(menuItem -> String.format("%d. %-18s | W %3.1f | %s",
+                this.menuItems.indexOf(menuItem) + 1,
+                menuItem.getName(),
+                menuItem.getPrice(),
+                menuItem.getDescription()))
+                .forEach(System.out::println);
         System.out.println("0. 뒤로가기");
     }
 
