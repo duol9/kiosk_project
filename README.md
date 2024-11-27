@@ -57,6 +57,7 @@ Java로 구현된 객체지향설계가 적용된 키오스크 프로그램입�
     - `getDescripton()`: 메뉴 설명에 접근 가능
 
 <br>
+
 ## Lv.2와의 차이점
 - 유효하지 않은 번호 선택 시 예외 처리 (`IllegalArgumentException` 발생)
 - `Main`클래스 
